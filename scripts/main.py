@@ -1,25 +1,39 @@
 import pygame
 
-#Screen
+
+# Screen dimensions
 WIDTH = 1300
-HEIGHT = WIDTH/2
-screen = pygame.display.set_mode((WIDTH,HEIGHT))
+HEIGHT = WIDTH / 2
+screen = pygame.display.set_mode((WIDTH, HEIGHT))
 
 clock = pygame.time.Clock()
-FPS = 40;
+FPS = 40
 
-#While Loop
-running = True
-while running:
-    for i in pygame.event.get():
-        if i.type == pygame.QUIT:
-            running = False
+# Set up colors
+WHITE = (255, 255, 255)
+RED = (255, 0, 0)
+GREEN = (0, 255, 0)
 
-      
+# Main function
+def main():
+    from player import Player  
 
-    clock.tick(FPS)
-    
+    running = True
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
 
+        screen.fill(WHITE)
+        
+        # Create a Player object
+        player = Player(GREEN, 20, 0, 0, 0)
+        player.create_player(screen)
+        pygame.display.flip()
+        
+        clock.tick(FPS)
 
+    pygame.quit()
 
-pygame.quit()
+if __name__ == "__main__":
+    main()
