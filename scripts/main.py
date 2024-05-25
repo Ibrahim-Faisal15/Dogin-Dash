@@ -19,8 +19,9 @@ GREEN = (0, 255, 0)
 # Main function
 def main():
 
-    #Dynamic Position
+    #Dynamic properties
     pos_x = (WIDTH//2)
+    health = 100
 
     from player import Player  
 
@@ -35,7 +36,7 @@ def main():
         screen.fill(WHITE)
         
         # Create a Player object
-        player = Player(GREEN, 50, 20, pos_x, (HEIGHT-100))
+        player = Player(GREEN, 50, 20, pos_x, (HEIGHT-100), health)
         player.create_player(screen)
         pygame.display.flip()
 
