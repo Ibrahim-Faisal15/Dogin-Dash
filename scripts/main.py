@@ -27,7 +27,7 @@ def main():
         screen.fill(WHITE)
         
         # Create a Player object
-        player = Player(GREEN, 20, 0, 0, 0)
+        player = Player(GREEN, 20, 0, 0)
         player.create_player(screen)
         pygame.display.flip()
         
