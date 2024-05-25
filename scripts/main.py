@@ -29,7 +29,7 @@ def main():
 
 
     from player import Player  
-    from lasers import Lasers
+    from lasers import Laser
 
     running = True
     while running:
@@ -45,15 +45,16 @@ def main():
         # Create a Player object
         player = Player(GREEN, 50, 20, player_pos_x, (HEIGHT-100), health)
         player.create_player(screen)
-        pygame.display.flip()
+       
 
         #Create a Laser Object
-        laser = Lasers(RED, 10, 20, 10, 10, laser_pos_x, HEIGHT)
+        # laser =  Lasers(RED, 10, 20, 10, 10, laser_pos_x, HEIGHT)
+        laser = Laser(RED, 50, 20, 231, 23, 5)
+        laser.create_laser(screen)
 
-        
-        #Laser Generation 
-        laser.randomSpawn(screen) 
-
+        pygame.display.flip()
+     
+ 
 
         
         #Control System
@@ -67,7 +68,7 @@ def main():
 
 
 
-        pygame.display.update()  
+    
         
         clock.tick(FPS)
 
@@ -75,3 +76,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+'''Figure why the laser isnt appearing'''
