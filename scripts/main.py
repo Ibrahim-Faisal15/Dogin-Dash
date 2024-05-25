@@ -20,10 +20,16 @@ GREEN = (0, 255, 0)
 def main():
 
     #Dynamic properties
-    pos_x = (WIDTH//2)
+    player_pos_x = (WIDTH//2)
     health = 100
 
+    laser_pos_x = WIDTH
+
+
+
+
     from player import Player  
+    from lasers import Lasers
 
     running = True
     while running:
@@ -34,21 +40,30 @@ def main():
 
 
         screen.fill(WHITE)
+
         
         # Create a Player object
-        player = Player(GREEN, 50, 20, pos_x, (HEIGHT-100), health)
+        player = Player(GREEN, 50, 20, player_pos_x, (HEIGHT-100), health)
         player.create_player(screen)
         pygame.display.flip()
+
+        #Create a Laser Object
+        laser = Lasers(RED, 10, 20, 10, 10, laser_pos_x, HEIGHT)
+
+        
+        #Laser Generation 
+        laser.randomSpawn(screen) 
+
 
         
         #Control System
         keys = pygame.key.get_pressed()
-        if keys[pygame.K_RIGHT] and pos_x < WIDTH-50:
-            pos_x += player.velocity_x
+        if keys[pygame.K_RIGHT] and player_pos_x < WIDTH-50:
+            player_pos_x += player.velocity_x
 
             
-        elif keys[pygame.K_LEFT] and pos_x > 0:
-             pos_x -= player.velocity_x
+        elif keys[pygame.K_LEFT] and player_pos_x > 0:
+             player_pos_x -= player.velocity_x
 
 
 
