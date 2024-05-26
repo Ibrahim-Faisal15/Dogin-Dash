@@ -1,4 +1,5 @@
 import pygame
+import random
 
 
 # Screen dimensions
@@ -23,7 +24,7 @@ def main():
     player_pos_x = (WIDTH//2)
     health = 100
 
-    laser_pos_x = WIDTH
+    laser_pos_x = random.randrange(0, WIDTH-60)
 
 
 
@@ -49,7 +50,7 @@ def main():
 
         #Create a Laser Object
         # laser =  Lasers(RED, 10, 20, 10, 10, laser_pos_x, HEIGHT)
-        laser = Laser(RED, 50, 20, 231, 23, 5)
+        laser = Laser(RED, 50, 20, laser_pos_x, 23, 5)
         laser.create_laser(screen)
 
         pygame.display.flip()
@@ -76,5 +77,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-'''Figure why the laser isnt appearing'''
