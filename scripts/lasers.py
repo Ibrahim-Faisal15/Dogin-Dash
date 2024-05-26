@@ -20,7 +20,17 @@ class Laser:
     def create_laser(self, screen):
         rectangle = pygame.Rect(self.pos_x, self.pos_y, self.width, self.height)
         pygame.draw.rect(screen, self.color, rectangle)
+   
 
+    def move(self):
+        if self.pos_y < 430:
+            self.pos_y += self.velocity_y
+        else:
+            self.pos_y = 20
+
+       
+         
+        
 
 
 

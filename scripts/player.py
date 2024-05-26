@@ -13,6 +13,13 @@ class Player:
         rectangle = pygame.Rect(self.pos_x, self.pos_y, self.size, self.size)
         pygame.draw.rect(screen, self.color, rectangle)
 
+    def move(self, KEY):
+            if KEY == "RIGHT":
+                self.pos_x += self.velocity_x
+                        
+            elif KEY == "LEFT":
+                self.pos_x -= self.velocity_x
+
 
 
 

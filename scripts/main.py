@@ -28,14 +28,17 @@ def main():
     #Dynamic properties
     player_pos_x = (WIDTH//2)
     health = 100
-
     laser_pos_x = random.randrange(0, WIDTH-60)
+    laser_pos_y = 10
     laser_width = random.randrange(30,60)
     laser_height = random.randrange(50,90)
-    
-
     attack = 10
 
+
+  
+    player = Player(GREEN, 50, 10, player_pos_x, (HEIGHT-100), health)
+    laser = Laser(RED, laser_height, laser_width, 20, laser_pos_x, laser_pos_y, attack)
+    
 
 
 
@@ -45,41 +48,37 @@ def main():
             if event.type == pygame.QUIT:
                 running = False
 
-
-
         screen.fill(WHITE)
 
+
+
         
-        # Create a Player object
-        player = Player(GREEN, 50, 20, player_pos_x, (HEIGHT-100), health)
+        #Creating player object
         player.create_player(screen)
        
-
-        #Create a Laser Object
-        laser = Laser(RED, laser_height, laser_width, 20, laser_pos_x, 10, attack)
-        laser.create_laser(screen)
-
-        pygame.display.flip()
-     
- 
-
-        
-        #Control System
+           
+        #Player Control System
         keys = pygame.key.get_pressed()
         if keys[pygame.K_RIGHT] and player_pos_x < WIDTH-50:
-            player_pos_x += player.velocity_x
-
+            player.move("RIGHT")
             
         elif keys[pygame.K_LEFT] and player_pos_x > 0:
-             player_pos_x -= player.velocity_x
-
-
-
-    
+              player.move("LEFT")
         
+
+
+        
+        #Create a Laser Object
+        laser.create_laser(screen)   
+        laser.move()
+        
+        pygame.display.flip()
+       
         clock.tick(FPS)
 
     pygame.quit()
 
 if __name__ == "__main__":
     main()
+
+    # Why its not stopping
