@@ -28,7 +28,6 @@ def main():
     #Dynamic properties
     player_pos_x = (WIDTH//2)
     health = 100
-    laser_pos_x = random.randrange(0, WIDTH-60)
     laser_pos_y = 0
     laser_width = random.randrange(30,60)
     laser_height = random.randrange(50,90)
@@ -36,9 +35,10 @@ def main():
 
 
   
+   
+
     player = Player(GREEN, 50, 10, player_pos_x, (HEIGHT-100), health)
-    laser = Laser(RED, laser_height, laser_width, 20, laser_pos_x, laser_pos_y, attack, screen)
-    
+    laser = Laser(RED, laser_height, laser_width, 5,  laser_pos_y, attack, screen)
 
 
 
@@ -50,9 +50,7 @@ def main():
 
         screen.fill(WHITE)
 
-
-
-        
+     
         #Creating player object
         player.create_player(screen)
        
@@ -76,7 +74,11 @@ def main():
 
         if(laser.hit):
                 laser.pos_y = 0
+                laser.random_gen()
                 laser.hit = False
+                
+
+        print(laser.pos_x, laser.pos_y)
 
 
             

@@ -7,16 +7,17 @@ import random
 
 
 class Laser:
-    def __init__(self, color, height, width, velocity_y, pos_x, pos_y, attack, screen):
+    def __init__(self, color, height, width, velocity_y,  pos_y, attack, screen):
         self.color = color
         self.height = height
         self.width = width
         self.velocity_y = velocity_y
-        self.pos_x = pos_x
+        self.pos_x = random.randrange(0, 1300-60)
         self.pos_y = pos_y
         self.attack = attack
         self.screen = screen
         self.hit = False
+
 
         
     def create_laser(self):
@@ -31,6 +32,13 @@ class Laser:
     def check_hit(self):
         if self.pos_y >= ((1300//2)-100):
             self.hit = True
+    
+    def random_gen(self):
+        if(self.hit):
+            self.pos_x = random.randrange(0, 1300-60)
+
+    
+    
         
             
 
