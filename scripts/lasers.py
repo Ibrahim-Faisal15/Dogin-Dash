@@ -25,13 +25,13 @@ class Laser:
    
 
     def move(self):        
-        if self.pos_y < 300:
+        if self.pos_y < ((1300//2)-100):
             self.pos_y += self.velocity_y
     
     def check_hit(self):
-        if self.pos_y > 300:
+        if self.pos_y >= ((1300//2)-100):
             self.hit = True
-            # self.pos_y = 0
+        
             
 
        

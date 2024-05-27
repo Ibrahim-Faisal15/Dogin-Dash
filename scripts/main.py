@@ -73,10 +73,16 @@ def main():
         laser.move()
         laser.check_hit()
 
-        
+
         if(laser.hit):
-            laser.create_laser()
-            laser.pos_y = 0
+                laser.pos_y = 0
+                laser.hit = False
+
+
+            
+          
+           
+            
         
         pygame.display.flip()
        
