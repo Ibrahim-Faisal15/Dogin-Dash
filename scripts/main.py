@@ -2,28 +2,23 @@ import pygame
 import random
 
 
-# Screen dimensions
+# setting up the window
 WIDTH = 1300
 HEIGHT = WIDTH / 2
-screen = pygame.display.set_mode((WIDTH, HEIGHT))
-
+SCREEN = pygame.display.set_mode((WIDTH, HEIGHT))
 clock = pygame.time.Clock()
 FPS = 40
 
-# Set up colors
+#colors values
 WHITE = (255, 255, 255)
 RED = (255, 0, 0)
 GREEN = (0, 255, 0)
 
 
-
 # Main function
 def main():
-
-    
     from player import Player  
     from lasers import Laser
-
 
     #Dynamic properties
     player_pos_x = (WIDTH//2)
@@ -33,14 +28,8 @@ def main():
     laser_height = random.randrange(50,90)
     attack = 10
 
-
-  
-   
-
     player = Player(GREEN, 50, 10, player_pos_x, (HEIGHT-100), health)
-    laser = Laser(RED, laser_height, laser_width, 5,  laser_pos_y, attack, screen)
-
-
+    laser = Laser(RED, laser_height, laser_width, 5,  laser_pos_y, attack, SCREEN)
 
     running = True
     while running:
@@ -48,11 +37,11 @@ def main():
             if event.type == pygame.QUIT:
                 running = False
 
-        screen.fill(WHITE)
+        SCREEN.fill(WHITE)
 
      
         #Creating player object
-        player.create_player(screen)
+        player.create_player(SCREEN)
        
            
         #Player Control System
@@ -62,30 +51,17 @@ def main():
             
         elif keys[pygame.K_LEFT] and player_pos_x > 0:
               player.move("LEFT")
-        
-
-
-        
+               
         #Create a Laser Object 
         laser.create_laser()
         laser.move()
         laser.check_hit()
 
-
         if(laser.hit):
                 laser.pos_y = 0
                 laser.random_gen()
                 laser.hit = False
-                
-
-        print(laser.pos_x, laser.pos_y)
-
-
-            
-          
-           
-            
-        
+                 
         pygame.display.flip()
        
         clock.tick(FPS)
@@ -95,4 +71,4 @@ def main():
 if __name__ == "__main__":
     main()
 
-    # Why its not stopping
+

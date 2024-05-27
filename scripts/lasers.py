@@ -1,11 +1,6 @@
 import pygame
 import random
 
-
-          
-
-
-
 class Laser:
     def __init__(self, color, height, width, velocity_y,  pos_y, attack, screen):
         self.color = color
@@ -17,9 +12,7 @@ class Laser:
         self.attack = attack
         self.screen = screen
         self.hit = False
-
-
-        
+      
     def create_laser(self):
         rectangle = pygame.Rect(self.pos_x, self.pos_y, self.width, self.height)
         pygame.draw.rect(self.screen, self.color, rectangle)
