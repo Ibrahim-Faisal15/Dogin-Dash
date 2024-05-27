@@ -29,7 +29,7 @@ def main():
     player_pos_x = (WIDTH//2)
     health = 100
     laser_pos_x = random.randrange(0, WIDTH-60)
-    laser_pos_y = 10
+    laser_pos_y = 0
     laser_width = random.randrange(30,60)
     laser_height = random.randrange(50,90)
     attack = 10
@@ -37,7 +37,7 @@ def main():
 
   
     player = Player(GREEN, 50, 10, player_pos_x, (HEIGHT-100), health)
-    laser = Laser(RED, laser_height, laser_width, 20, laser_pos_x, laser_pos_y, attack)
+    laser = Laser(RED, laser_height, laser_width, 20, laser_pos_x, laser_pos_y, attack, screen)
     
 
 
@@ -68,9 +68,15 @@ def main():
 
 
         
-        #Create a Laser Object
-        laser.create_laser(screen)   
+        #Create a Laser Object 
+        laser.create_laser()
         laser.move()
+        laser.check_hit()
+
+        
+        if(laser.hit):
+            laser.create_laser()
+            laser.pos_y = 0
         
         pygame.display.flip()
        

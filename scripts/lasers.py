@@ -7,7 +7,7 @@ import random
 
 
 class Laser:
-    def __init__(self, color, height, width, velocity_y, pos_x, pos_y, attack):
+    def __init__(self, color, height, width, velocity_y, pos_x, pos_y, attack, screen):
         self.color = color
         self.height = height
         self.width = width
@@ -15,18 +15,24 @@ class Laser:
         self.pos_x = pos_x
         self.pos_y = pos_y
         self.attack = attack
+        self.screen = screen
+        self.hit = False
 
         
-    def create_laser(self, screen):
+    def create_laser(self):
         rectangle = pygame.Rect(self.pos_x, self.pos_y, self.width, self.height)
-        pygame.draw.rect(screen, self.color, rectangle)
+        pygame.draw.rect(self.screen, self.color, rectangle)
    
 
-    def move(self):
-        if self.pos_y < 430:
+    def move(self):        
+        if self.pos_y < 300:
             self.pos_y += self.velocity_y
-        else:
-            self.pos_y = 20
+    
+    def check_hit(self):
+        if self.pos_y > 300:
+            self.hit = True
+            # self.pos_y = 0
+            
 
        
          
