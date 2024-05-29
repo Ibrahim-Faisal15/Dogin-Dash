@@ -29,7 +29,13 @@ def main():
     attack = 10
 
     player = Player(GREEN, 50, 10, player_pos_x, (HEIGHT-100), health)
-    laser = Laser(RED, laser_height, laser_width, 5,  laser_pos_y, attack, SCREEN)
+    laser = Laser(SCREEN)
+    new_lasers = []
+    time_interval = 1000
+    
+    next_object_time = 0
+    
+    
 
     running = True
     while running:
@@ -38,10 +44,15 @@ def main():
                 running = False
 
         SCREEN.fill(WHITE)
+        
+        current_time = pygame.time.get_ticks()
 
      
         #Creating player object
         player.create_player(SCREEN)
+        
+
+
        
            
         #Player Control System
@@ -53,16 +64,34 @@ def main():
               player.move("LEFT")
                
         #Create a Laser Object 
-        laser.create_laser()
-        laser.move()
-        laser.check_hit()
+        # laser.create_laser()
+       
+        # laser.move()
+        # laser.check_hit()
+        
 
-        if(laser.hit):
-                laser.pos_y = 0
-                laser.random_gen()
-                laser.hit = False
+        if current_time > next_object_time:
+            next_object_time += time_interval
+            new_lasers.append(Laser(SCREEN))
+            print(True)
+            print(new_lasers)
+            
+    
+                     
+                
+        for laser in new_lasers:
+            laser.create_laser()
+            laser.move()
+
+
+
+        if current_time > next_object_time:
+            print(True)
+
                  
         pygame.display.flip()
+
+        
        
         clock.tick(FPS)
 

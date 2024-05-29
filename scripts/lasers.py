@@ -2,14 +2,14 @@ import pygame
 import random
 
 class Laser:
-    def __init__(self, color, height, width, velocity_y,  pos_y, attack, screen):
-        self.color = color
-        self.height = height
-        self.width = width
-        self.velocity_y = velocity_y
+    def __init__(self, screen):
+        self.color = (255, 0, 0)
+        self.height = random.randrange(50,90)
+        self.width = random.randrange(30,60)
+        self.velocity_y = 20
         self.pos_x = random.randrange(0, 1300-60)
-        self.pos_y = pos_y
-        self.attack = attack
+        self.pos_y = 0
+        self.attack = 50
         self.screen = screen
         self.hit = False
       
@@ -19,16 +19,19 @@ class Laser:
    
 
     def move(self):        
-        if self.pos_y < ((1300//2)-100):
+        if self.pos_y < self.screen.get_height():
             self.pos_y += self.velocity_y
     
     def check_hit(self):
-        if self.pos_y >= ((1300//2)-100):
+        if self.pos_y >= (self.screen.get_height()-100):
             self.hit = True
     
     def random_gen(self):
         if(self.hit):
             self.pos_x = random.randrange(0, 1300-60)
+            self.pos_y = 0
+            self.hit = False
+
 
     
     
