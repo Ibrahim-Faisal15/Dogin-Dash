@@ -28,10 +28,10 @@ def main():
     laser_height = random.randrange(50,90)
     attack = 10
 
-    player = Player(GREEN, 50, 10, player_pos_x, (HEIGHT-100), health)
+    player = Player(GREEN, 50, 20, player_pos_x, (HEIGHT-100), health)
     laser = Laser(SCREEN)
     new_lasers = []
-    time_interval = 1000
+    time_interval = 100
     
     next_object_time = 0
     
@@ -73,20 +73,25 @@ def main():
         if current_time > next_object_time:
             next_object_time += time_interval
             new_lasers.append(Laser(SCREEN))
-            print(True)
             print(new_lasers)
             
     
-                     
-                
+                                     
         for laser in new_lasers:
             laser.create_laser()
             laser.move()
+            if len(new_lasers) >= 2 and laser.check_hit() == True:
+                new_lasers.pop(0)
+
+           
+
+        
 
 
 
-        if current_time > next_object_time:
-            print(True)
+
+
+
 
                  
         pygame.display.flip()

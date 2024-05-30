@@ -23,7 +23,7 @@ class Laser:
             self.pos_y += self.velocity_y
     
     def check_hit(self):
-        if self.pos_y >= (self.screen.get_height()-100):
+        if self.pos_y >= (self.screen.get_height()):
             self.hit = True
     
     def random_gen(self):
