@@ -6,8 +6,8 @@ class Laser:
         self.color = (255, 0, 0)
         self.height = random.randrange(50,90)
         self.width = random.randrange(30,60)
-        self.velocity_y = 20
-        self.pos_x = random.randrange(0, 1300-60)
+        self.velocity_y = 3
+        self.pos_x = random.randrange(0, 1300-60)+100
         self.pos_y = 0
         self.attack = 50
         self.screen = screen
@@ -24,13 +24,16 @@ class Laser:
     
     def check_hit(self):
         if self.pos_y >= (self.screen.get_height()):
-            self.hit = True
+              return self.hit == True
+        
     
     def random_gen(self):
         if(self.hit):
             self.pos_x = random.randrange(0, 1300-60)
             self.pos_y = 0
             self.hit = False
+
+
 
 
     

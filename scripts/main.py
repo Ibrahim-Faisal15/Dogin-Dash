@@ -3,7 +3,7 @@ import random
 
 
 # setting up the window
-WIDTH = 1300
+WIDTH = 1050
 HEIGHT = WIDTH / 2
 SCREEN = pygame.display.set_mode((WIDTH, HEIGHT))
 clock = pygame.time.Clock()
@@ -23,17 +23,14 @@ def main():
     #Dynamic properties
     player_pos_x = (WIDTH//2)
     health = 100
-    laser_pos_y = 0
-    laser_width = random.randrange(30,60)
-    laser_height = random.randrange(50,90)
-    attack = 10
 
-    player = Player(GREEN, 50, 20, player_pos_x, (HEIGHT-100), health)
+    player = Player(GREEN, 50, 5, player_pos_x, (HEIGHT-100), health)
     laser = Laser(SCREEN)
     new_lasers = []
     time_interval = 100
-    
     next_object_time = 0
+
+
     
     
 
@@ -70,28 +67,27 @@ def main():
         # laser.check_hit()
         
 
-        if current_time > next_object_time:
+        if current_time > next_object_time and len(new_lasers) <= 6:
             next_object_time += time_interval
             new_lasers.append(Laser(SCREEN))
-            print(new_lasers)
-            
-    
-                                     
+
+
+        new_lasers = [laser for laser in new_lasers if laser.pos_x <= SCREEN.get_width()-100]
+      
+                              
         for laser in new_lasers:
             laser.create_laser()
+
             laser.move()
-            if len(new_lasers) >= 2 and laser.check_hit() == True:
+            if len(new_lasers) >= 5 and laser.pos_y >= (SCREEN.get_height()):
                 new_lasers.pop(0)
+                print(laser.pos_x >= laser.pos_y)
+                
+         
 
-           
-
+  
+            
         
-
-
-
-
-
-
 
                  
         pygame.display.flip()
