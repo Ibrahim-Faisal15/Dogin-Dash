@@ -1,6 +1,8 @@
 import pygame
 import random
 
+import pygame.locals
+
 
 # setting up the window
 WIDTH = 1050
@@ -30,23 +32,26 @@ def main():
     time_interval = 1000
     next_object_time = 0
 
-
-    
-    
-
+    #Images
+   
     running = True
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
 
-        SCREEN.fill(WHITE)
         
         current_time = pygame.time.get_ticks()
 
      
         #Creating player object
         player.create_player(SCREEN)
+
+        # image
+        background_img = pygame.image.load("asset/background_img.jpg")
+        background_img = pygame.transform.scale(background_img, (WIDTH, HEIGHT+90))
+        
+
         
          
         #Player Control System
@@ -62,9 +67,7 @@ def main():
 
         if current_time > next_object_time and len(new_lasers) < 6:
             next_object_time += time_interval
-            print(len(new_lasers))
             new_lasers.append(Laser(SCREEN))
-            print("laser appeneded")
 
 
         new_lasers = [laser for laser in new_lasers if laser.pos_x <= SCREEN.get_width()-100]
@@ -79,9 +82,11 @@ def main():
             if len(new_lasers) >= 5 and laser.pos_y >= (SCREEN.get_height()):
                 new_lasers.pop(0)
                 print(len(new_lasers))
-                print("Deleted")
                 
         pygame.display.flip()
+
+        SCREEN.blit(background_img , (0,0))
+
 
         
        
