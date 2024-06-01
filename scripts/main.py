@@ -27,6 +27,8 @@ def main():
     player = Player(GREEN, 50, 5, player_pos_x, (HEIGHT-100), health)
     laser = Laser(SCREEN)
     new_lasers = []
+    time_interval = 1000
+    next_object_time = 0
 
 
     
@@ -46,10 +48,7 @@ def main():
         #Creating player object
         player.create_player(SCREEN)
         
-
-
-       
-           
+         
         #Player Control System
         keys = pygame.key.get_pressed()
         if keys[pygame.K_RIGHT] and player_pos_x < WIDTH-50:
@@ -61,14 +60,16 @@ def main():
 
         
 
-        if  len(new_lasers) <= 6:
-            
+        if current_time > next_object_time and len(new_lasers) < 6:
+            next_object_time += time_interval
             print(len(new_lasers))
             new_lasers.append(Laser(SCREEN))
-            
+            print("laser appeneded")
 
 
         new_lasers = [laser for laser in new_lasers if laser.pos_x <= SCREEN.get_width()-100]
+
+      
       
                               
         for laser in new_lasers:
@@ -77,6 +78,8 @@ def main():
             laser.move()
             if len(new_lasers) >= 5 and laser.pos_y >= (SCREEN.get_height()):
                 new_lasers.pop(0)
+                print(len(new_lasers))
+                print("Deleted")
                 
         pygame.display.flip()
 
