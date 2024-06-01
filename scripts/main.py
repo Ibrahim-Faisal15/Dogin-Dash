@@ -27,8 +27,6 @@ def main():
     player = Player(GREEN, 50, 5, player_pos_x, (HEIGHT-100), health)
     laser = Laser(SCREEN)
     new_lasers = []
-    time_interval = 100
-    next_object_time = 0
 
 
     
@@ -60,16 +58,14 @@ def main():
         elif keys[pygame.K_LEFT] and player_pos_x > 0:
               player.move("LEFT")
                
-        #Create a Laser Object 
-        # laser.create_laser()
-       
-        # laser.move()
-        # laser.check_hit()
+
         
 
-        if current_time > next_object_time and len(new_lasers) <= 6:
-            next_object_time += time_interval
+        if  len(new_lasers) <= 6:
+            
+            print(len(new_lasers))
             new_lasers.append(Laser(SCREEN))
+            
 
 
         new_lasers = [laser for laser in new_lasers if laser.pos_x <= SCREEN.get_width()-100]
@@ -81,15 +77,7 @@ def main():
             laser.move()
             if len(new_lasers) >= 5 and laser.pos_y >= (SCREEN.get_height()):
                 new_lasers.pop(0)
-                print(laser.pos_x >= laser.pos_y)
                 
-         
-
-  
-            
-        
-
-                 
         pygame.display.flip()
 
         
