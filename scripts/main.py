@@ -9,12 +9,14 @@ WIDTH = 1050
 HEIGHT = WIDTH / 2
 SCREEN = pygame.display.set_mode((WIDTH, HEIGHT))
 clock = pygame.time.Clock()
-FPS = 40
+FPS = 27
 
 #colors values
 WHITE = (255, 255, 255)
 RED = (255, 0, 0)
 GREEN = (0, 255, 0)
+
+
 
 
 # Main function
@@ -25,14 +27,28 @@ def main():
     #Dynamic properties
     player_pos_x = (WIDTH//2)
     health = 100
-
-    player = Player(GREEN, 50, 5, player_pos_x, (HEIGHT-100), health)
-    laser = Laser(SCREEN)
+  
+    # player sprites
+    idle = [pygame.image.load('asset/player_sprite/idle/00_idle.png'), pygame.image.load('asset/player_sprite/idle/01_idle.png'), pygame.image.load('asset/player_sprite/idle/02_idle.png'), pygame.image.load('asset/player_sprite/idle/03_idle.png')]
+    size = (120, 120)
+    for i in range(len(idle)):
+        idle[i] = pygame.transform.scale(idle[i], size)
+    
+   
+    # background_img
+    background_img = pygame.image.load("asset/background_img.jpg")
+    background_img = pygame.transform.scale(background_img, (WIDTH, HEIGHT+90))
     new_lasers = []
     time_interval = 1000
     next_object_time = 0
 
-    #Images
+    # instances
+    player = Player(GREEN, 50, 5, player_pos_x, (HEIGHT-100), health, idle, SCREEN)
+    laser = Laser(SCREEN)
+
+    
+
+
    
     running = True
     while running:
@@ -45,15 +61,9 @@ def main():
 
      
         #Creating player object
-        player.create_player(SCREEN)
-
-        # image
-        background_img = pygame.image.load("asset/background_img.jpg")
-        background_img = pygame.transform.scale(background_img, (WIDTH, HEIGHT+90))
-        
+        player.create_player()
 
         
-         
         #Player Control System
         keys = pygame.key.get_pressed()
         if keys[pygame.K_RIGHT] and player_pos_x < WIDTH-50:
@@ -61,11 +71,14 @@ def main():
             
         elif keys[pygame.K_LEFT] and player_pos_x > 0:
               player.move("LEFT")
+        else:
+            player.idle()
+            
                
 
         
 
-        if current_time > next_object_time and len(new_lasers) < 6:
+        if current_time > next_object_time and len(new_lasers) < 8:
             next_object_time += time_interval
             new_lasers.append(Laser(SCREEN))
 
@@ -79,9 +92,9 @@ def main():
             laser.create_laser()
 
             laser.move()
-            if len(new_lasers) >= 5 and laser.pos_y >= (SCREEN.get_height()):
+            if len(new_lasers) >= 6 and laser.pos_y >= (SCREEN.get_height()):
                 new_lasers.pop(0)
-                print(len(new_lasers))
+                # print(len(new_lasers))
                 
         pygame.display.flip()
 

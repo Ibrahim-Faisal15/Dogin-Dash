@@ -6,7 +6,7 @@ class Laser:
         self.color = (255, 0, 0)
         self.height = random.randrange(50,90)
         self.width = random.randrange(30,60)
-        self.velocity_y = 3.5
+        self.velocity_y = 3.9
         self.pos_x = random.randrange(0, 1300-60)+100
         self.pos_y = 0
         self.attack = 50
