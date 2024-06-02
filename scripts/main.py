@@ -33,19 +33,20 @@ def main():
     walkRight = [pygame.image.load('asset/player_sprite/Walk/00_Walk.png'), pygame.image.load('asset/player_sprite/Walk/01_Walk.png'), pygame.image.load('asset/player_sprite/Walk/02_Walk.png'), pygame.image.load('asset/player_sprite/Walk/03_Walk.png')]
     walkLeft = [pygame.image.load('asset/player_sprite/Walk/00_Walk.png'), pygame.image.load('asset/player_sprite/Walk/01_Walk.png'), pygame.image.load('asset/player_sprite/Walk/02_Walk.png'), pygame.image.load('asset/player_sprite/Walk/03_Walk.png')]
     
-    size = (120, 120)
 
-    for i in range(len(idle)):
-        idle[i] = pygame.transform.scale(idle[i], size)
 
-    for i in range(len(walkRight)):
-        walkRight[i] = pygame.transform.scale(walkRight[i], size) 
+    # # Chaning the size of the sprites
+    # for i in range(len(idle)):
+    #     idle[i] = pygame.transform.scale(idle[i], size)
 
-    for i in range(len(walkLeft)):
-        walkLeft[i] = pygame.transform.scale(walkLeft[i], size)   
+    # for i in range(len(walkRight)):
+    #     walkRight[i] = pygame.transform.scale(walkRight[i], size) 
 
-    for i in range(len(walkLeft)):
-        walkLeft[i] = pygame.transform.flip(walkLeft[i], True, False)
+    # for i in range(len(walkLeft)):
+    #     walkLeft[i] = pygame.transform.scale(walkLeft[i], size)   
+
+    # for i in range(len(walkLeft)):
+    #     walkLeft[i] = pygame.transform.flip(walkLeft[i], True, False)
     
    
     # background_img
@@ -56,27 +57,21 @@ def main():
     next_object_time = 0
 
     # instances
-    player = Player(GREEN, 50, 5, player_pos_x, (HEIGHT-100), health, idle, SCREEN, walkRight, walkLeft)
+    player = Player(GREEN, 50, 5, player_pos_x, (HEIGHT-100), health,  SCREEN)
     laser = Laser(SCREEN)
 
-    
 
-
-   
     running = True
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
-
         
         current_time = pygame.time.get_ticks()
 
-     
-        #Creating player object
-        player.create_player()
 
-        
+        player.update()
+     
         #Player Control System
         keys = pygame.key.get_pressed()
         if keys[pygame.K_RIGHT] and player_pos_x < WIDTH-50:
@@ -86,10 +81,7 @@ def main():
               player.move("LEFT")
         else:
             player.idle()
-            
-               
-
-        
+                 
 
         if current_time > next_object_time and len(new_lasers) < 8:
             next_object_time += time_interval
