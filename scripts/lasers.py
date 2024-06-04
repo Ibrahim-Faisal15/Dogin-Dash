@@ -12,11 +12,24 @@ class Laser:
         self.attack = 50
         self.screen = screen
         self.hit = False
-      
-    def create_laser(self):
-        rectangle = pygame.Rect(self.pos_x, self.pos_y, self.width, self.height)
-        pygame.draw.rect(self.screen, self.color, rectangle)
+        self.laser_size = (90, 170)
+       
+
+
+        #sprites
+        self.laser_sprites = [pygame.image.load("asset/laser_sprite/00_Astroids.png"),
+                              pygame.image.load("asset/laser_sprite/00_Astroids.png"),
+                              pygame.image.load("asset/laser_sprite/00_Astroids.png")]
+        
+        for i in range(len(self.laser_sprites)):
+            self.laser_sprites[i] = pygame.transform.scale(self.laser_sprites[i], self.laser_size) 
+
+        self.current_frames = 0
+        self.total_frames = len(self.laser_sprites)
+        self.frame_delay = 7
+        self.frame_count = 0
    
+    
 
     def move(self):        
         if self.pos_y < self.screen.get_height():
@@ -32,6 +45,18 @@ class Laser:
             self.pos_x = random.randrange(0, 1300-60)
             self.pos_y = 0
             self.hit = False
+
+    def update(self):
+        self.frame_count += 1
+        if self.frame_count >= self.frame_delay:
+            self.current_frames = (self.current_frames + 1) % self.total_frames
+            self.frame_count = 0
+
+
+    def create_laser(self):
+        # rectangle = pygame.Rect(self.pos_x, self.pos_y, self.width, self.height)
+        # pygame.draw.rect(self.screen, self.color, rectangle)
+        self.screen.blit(self.laser_sprites[self.current_frames], (self.pos_x, self.pos_y))
 
 
 
@@ -79,44 +104,3 @@ class Laser:
 
 
 
-# class Lasers:
-#         def __init__(self, colour, vel, height, width, attack, pos_x, pos_y):
-#             self.colour = colour    
-#             self.vel = vel           
-#             self.height = height
-#             self.width = width      
-#             self.attack = attack   
-#             self.pos_x = pos_x   
-#             self.pos_y = pos_y  
-
-#         def randomPosGen(self):
-#                 self.pos_x = random.randrange(0, self.pos_x)
-    
-            
-            
-#         def randomSize(self):
-#                 self.height = random.randrange((self.height-20), (self.height+20))
-#                 self.width = random.randrange((self.width-20), (self.width+20))
-
-#                 return [self.width, self.height]
-
-            
-#         def attacking(self):
-#                 return 
-            
-            
-#         def Yaxis_dec(self):
-#                 self.pos_y +- 1 
-            
-            
-#         def randomSpawn(self, screen):
-#                 width, height = self.randomSize()  
-#                 self.randomPosGen()  
-#                 rectangle = pygame.Rect(self.pos_x, self.pos_y, width, height)  
-#                 pygame.draw.rect(screen, self.colour, rectangle)  
-
-            
-            
-
-        
-        

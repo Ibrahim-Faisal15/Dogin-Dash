@@ -16,9 +16,20 @@ class Player:
       
 
         # player sprites
-        self.player_idle = [pygame.image.load('asset/player_sprite/idle/00_idle.png'), pygame.image.load('asset/player_sprite/idle/01_idle.png'), pygame.image.load('asset/player_sprite/idle/02_idle.png'), pygame.image.load('asset/player_sprite/idle/03_idle.png')]
-        self.walkRight = [pygame.image.load('asset/player_sprite/Walk/00_Walk.png'), pygame.image.load('asset/player_sprite/Walk/01_Walk.png'), pygame.image.load('asset/player_sprite/Walk/02_Walk.png'), pygame.image.load('asset/player_sprite/Walk/03_Walk.png')]
-        self.walkLeft = [pygame.image.load('asset/player_sprite/Walk/00_Walk.png'), pygame.image.load('asset/player_sprite/Walk/01_Walk.png'), pygame.image.load('asset/player_sprite/Walk/02_Walk.png'), pygame.image.load('asset/player_sprite/Walk/03_Walk.png')]
+        self.player_idle = [pygame.image.load('asset/player_sprite/idle/00_idle.png'),
+                             pygame.image.load('asset/player_sprite/idle/01_idle.png'),
+                             pygame.image.load('asset/player_sprite/idle/02_idle.png'),
+                               pygame.image.load('asset/player_sprite/idle/03_idle.png')]
+        
+        self.walkRight = [pygame.image.load('asset/player_sprite/Walk/00_Walk.png'),
+                           pygame.image.load('asset/player_sprite/Walk/01_Walk.png'),
+                             pygame.image.load('asset/player_sprite/Walk/02_Walk.png'),
+                               pygame.image.load('asset/player_sprite/Walk/03_Walk.png')]
+        
+        self.walkLeft = [pygame.image.load('asset/player_sprite/Walk/00_Walk.png'),
+                          pygame.image.load('asset/player_sprite/Walk/01_Walk.png'), 
+                          pygame.image.load('asset/player_sprite/Walk/02_Walk.png'),
+                            pygame.image.load('asset/player_sprite/Walk/03_Walk.png')]
 
 
         self.current_frames = 0
@@ -72,8 +83,7 @@ class Player:
                 self.right = False
                 self.walk_count = 0
 
-            
-  
+ 
     def idle(self):        
         self.screen.blit(self.player_idle[self.current_frames], (self.pos_x, self.pos_y))
           

@@ -33,21 +33,6 @@ def main():
     walkRight = [pygame.image.load('asset/player_sprite/Walk/00_Walk.png'), pygame.image.load('asset/player_sprite/Walk/01_Walk.png'), pygame.image.load('asset/player_sprite/Walk/02_Walk.png'), pygame.image.load('asset/player_sprite/Walk/03_Walk.png')]
     walkLeft = [pygame.image.load('asset/player_sprite/Walk/00_Walk.png'), pygame.image.load('asset/player_sprite/Walk/01_Walk.png'), pygame.image.load('asset/player_sprite/Walk/02_Walk.png'), pygame.image.load('asset/player_sprite/Walk/03_Walk.png')]
     
-
-
-    # # Chaning the size of the sprites
-    # for i in range(len(idle)):
-    #     idle[i] = pygame.transform.scale(idle[i], size)
-
-    # for i in range(len(walkRight)):
-    #     walkRight[i] = pygame.transform.scale(walkRight[i], size) 
-
-    # for i in range(len(walkLeft)):
-    #     walkLeft[i] = pygame.transform.scale(walkLeft[i], size)   
-
-    # for i in range(len(walkLeft)):
-    #     walkLeft[i] = pygame.transform.flip(walkLeft[i], True, False)
-    
    
     # background_img
     background_img = pygame.image.load("asset/background_img.jpg")
@@ -71,6 +56,7 @@ def main():
 
 
         player.update()
+        laser.update()
      
         #Player Control System
         keys = pygame.key.get_pressed()
