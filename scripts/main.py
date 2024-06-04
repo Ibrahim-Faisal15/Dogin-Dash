@@ -43,9 +43,6 @@ def main():
     laser = Laser(SCREEN)
 
 
-  
-    
-
 
 
     running = True
@@ -70,53 +67,37 @@ def main():
               player.move("LEFT")
         else:
             player.idle()
-                 
 
-        if current_time > next_object_time and len(new_lasers) < 8:
+
+              
+
+        if current_time > next_object_time and len(new_lasers) < 15:
             next_object_time += time_interval
             new_lasers.append(Laser(SCREEN))
 
 
-        new_lasers = [laser for laser in new_lasers if laser.pos_x <= SCREEN.get_width()-100]
 
-      
-      
+
+        new_lasers = [laser for laser in new_lasers if laser.pos_x <= SCREEN.get_width()-100]
                               
         for laser in new_lasers:
             laser.create_laser()
-
             laser.move()
-            if len(new_lasers) >= 6 and laser.pos_y >= (SCREEN.get_height()):
+            if  laser.pos_y >= (SCREEN.get_height()):
                 new_lasers.pop(0)
-                # print(len(new_lasers))
-
-        pygame.draw.rect(SCREEN, GREEN, laser.laser_rect)
-
-        # pygame.draw.rect(SCREEN, GREEN, player.walkRight_rect)
+            
 
         if player.idle_rect.colliderect( laser.laser_rect):
-            print(1)
-
-        if player.walkRight_rect.colliderect( laser.laser_rect):
-            print(1)
-
-        if player.wallkLeft_rect.colliderect( laser.laser_rect):
-            print(1)
-
-                
+            print("collided!!")
 
 
-
-
-     
 
         pygame.display.flip()
 
 
         SCREEN.blit(background_img , (0,0))
 
-
-        
+    
        
         clock.tick(FPS)
 
