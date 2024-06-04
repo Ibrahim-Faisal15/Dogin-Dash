@@ -4,15 +4,16 @@ import random
 class Laser:
     def __init__(self, screen):
         self.color = (255, 0, 0)
-        self.height = random.randrange(50,90)
-        self.width = random.randrange(30,60)
+        # self.height = random.randrange(50,90)
+        # self.width = random.randrange(30,60)
         self.velocity_y = 3.9
         self.pos_x = random.randrange(0, 1300-60)+100
         self.pos_y = 0
         self.attack = 50
         self.screen = screen
         self.hit = False
-        self.laser_size = (90, 170)
+        # self.laser_size = (100, 170)
+        self.laser_size = (170, 170)
        
 
 
@@ -28,7 +29,9 @@ class Laser:
         self.total_frames = len(self.laser_sprites)
         self.frame_delay = 7
         self.frame_count = 0
-   
+
+        # laseR_Rect
+        self.laser_rect = self.laser_sprites[self.current_frames].get_rect(topleft=(self.pos_x, self.pos_y))
     
 
     def move(self):        
@@ -40,24 +43,26 @@ class Laser:
               return self.hit == True
         
     
-    def random_gen(self):
-        if(self.hit):
-            self.pos_x = random.randrange(0, 1300-60)
-            self.pos_y = 0
-            self.hit = False
+    # def random_gen(self):
+    #     if(self.hit):
+    #         self.pos_x = random.randrange(0, 1300-60)
+    #         self.pos_y = 0
+    #         self.hit = False
 
     def update(self):
         self.frame_count += 1
         if self.frame_count >= self.frame_delay:
             self.current_frames = (self.current_frames + 1) % self.total_frames
             self.frame_count = 0
-
+            self.laser_rect = self.laser_sprites[self.current_frames].get_rect(topleft=(self.pos_x, self.pos_y))
 
     def create_laser(self):
         # rectangle = pygame.Rect(self.pos_x, self.pos_y, self.width, self.height)
         # pygame.draw.rect(self.screen, self.color, rectangle)
-        self.screen.blit(self.laser_sprites[self.current_frames], (self.pos_x, self.pos_y))
 
+
+        self.screen.blit(self.laser_sprites[self.current_frames], (self.pos_x, self.pos_y))
+       
 
 
 

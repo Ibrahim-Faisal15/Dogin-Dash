@@ -1,5 +1,6 @@
 import pygame
 import random
+import math
 
 import pygame.locals
 
@@ -28,11 +29,7 @@ def main():
     player_pos_x = (WIDTH//2)
     health = 100
   
-    # player sprites
-    idle = [pygame.image.load('asset/player_sprite/idle/00_idle.png'), pygame.image.load('asset/player_sprite/idle/01_idle.png'), pygame.image.load('asset/player_sprite/idle/02_idle.png'), pygame.image.load('asset/player_sprite/idle/03_idle.png')]
-    walkRight = [pygame.image.load('asset/player_sprite/Walk/00_Walk.png'), pygame.image.load('asset/player_sprite/Walk/01_Walk.png'), pygame.image.load('asset/player_sprite/Walk/02_Walk.png'), pygame.image.load('asset/player_sprite/Walk/03_Walk.png')]
-    walkLeft = [pygame.image.load('asset/player_sprite/Walk/00_Walk.png'), pygame.image.load('asset/player_sprite/Walk/01_Walk.png'), pygame.image.load('asset/player_sprite/Walk/02_Walk.png'), pygame.image.load('asset/player_sprite/Walk/03_Walk.png')]
-    
+
    
     # background_img
     background_img = pygame.image.load("asset/background_img.jpg")
@@ -46,6 +43,11 @@ def main():
     laser = Laser(SCREEN)
 
 
+  
+    
+
+
+
     running = True
     while running:
         for event in pygame.event.get():
@@ -57,10 +59,11 @@ def main():
 
         player.update()
         laser.update()
+      
      
         #Player Control System
         keys = pygame.key.get_pressed()
-        if keys[pygame.K_RIGHT] and player_pos_x < WIDTH-50:
+        if keys[pygame.K_RIGHT] and player_pos_x <= WIDTH-90:
             player.move("RIGHT")
             
         elif keys[pygame.K_LEFT] and player_pos_x > 0:
@@ -86,8 +89,29 @@ def main():
             if len(new_lasers) >= 6 and laser.pos_y >= (SCREEN.get_height()):
                 new_lasers.pop(0)
                 # print(len(new_lasers))
+
+        pygame.draw.rect(SCREEN, GREEN, laser.laser_rect)
+
+        # pygame.draw.rect(SCREEN, GREEN, player.walkRight_rect)
+
+        if player.idle_rect.colliderect( laser.laser_rect):
+            print(1)
+
+        if player.walkRight_rect.colliderect( laser.laser_rect):
+            print(1)
+
+        if player.wallkLeft_rect.colliderect( laser.laser_rect):
+            print(1)
+
                 
+
+
+
+
+     
+
         pygame.display.flip()
+
 
         SCREEN.blit(background_img , (0,0))
 

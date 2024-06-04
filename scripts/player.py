@@ -51,6 +51,11 @@ class Player:
 
         for i in range(len(self.walkLeft)):
          self.walkLeft[i] = pygame.transform.flip(self.walkLeft[i], True, False)
+
+        #  player_rect
+        self.idle_rect = self.player_idle[self.current_frames].get_rect(topleft=(self.pos_x, self.pos_y))
+        self.walkRight_rect = self.player_idle[self.current_frames].get_rect(topleft=(self.pos_x, self.pos_y))
+        self.wallkLeft_rect = self.player_idle[self.current_frames].get_rect(topleft=(self.pos_x, self.pos_y))
       
 
     def update(self):
@@ -58,6 +63,10 @@ class Player:
         if self.frame_count >= self.frame_delay:
             self.current_frames = (self.current_frames + 1) % self.total_frames
             self.frame_count = 0
+
+            self.idle_rect = self.player_idle[self.current_frames].get_rect(topleft=(self.pos_x, self.pos_y))
+            self.walkRight_rect = self.player_idle[self.current_frames].get_rect(topleft=(self.pos_x, self.pos_y))
+            self.wallkLeft_rect = self.player_idle[self.current_frames].get_rect(topleft=(self.pos_x, self.pos_y))
 
     def move(self, KEY):
             
