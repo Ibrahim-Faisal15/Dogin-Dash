@@ -18,8 +18,8 @@ class Laser:
 
         #sprites
         self.laser_sprites = [pygame.image.load("asset/laser_sprite/00_Astroids.png"),
-                              pygame.image.load("asset/laser_sprite/00_Astroids.png"),
-                              pygame.image.load("asset/laser_sprite/00_Astroids.png")]
+                              pygame.image.load("asset/laser_sprite/01_Astroids.png"),
+                              pygame.image.load("asset/laser_sprite/02_Astroids.png")]
         
         for i in range(len(self.laser_sprites)):
             self.laser_sprites[i] = pygame.transform.scale(self.laser_sprites[i], self.laser_size) 
