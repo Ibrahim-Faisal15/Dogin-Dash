@@ -56,6 +56,8 @@ class Player:
         self.idle_rect = self.player_idle[self.current_frames].get_rect(topleft=(self.pos_x, self.pos_y))
         self.walkRight_rect = self.player_idle[self.current_frames].get_rect(topleft=(self.pos_x, self.pos_y))
         self.wallkLeft_rect = self.player_idle[self.current_frames].get_rect(topleft=(self.pos_x, self.pos_y))
+        self.idle_mask = pygame.mask.from_surface(self.player_idle[self.current_frames])
+        self.mask_image = self.idle_mask.to_surface()
       
 
     def update(self):
@@ -66,7 +68,10 @@ class Player:
 
             self.idle_rect = self.player_idle[self.current_frames].get_rect(topleft=(self.pos_x, self.pos_y))
             self.walkRight_rect = self.player_idle[self.current_frames].get_rect(topleft=(self.pos_x, self.pos_y))
-            self.wallkLeft_rect = self.player_idle[self.current_frames].get_rect(topleft=(self.pos_x, self.pos_y))
+            self.wallkLeft_rect = self.player_idle[self.current_frames].get_rect(topleft=(self.pos_x, self.pos_y), width=40)
+            
+            self.idle_mask = pygame.mask.from_surface(self.player_idle[self.current_frames])
+           
 
     def move(self, KEY):
             
@@ -94,7 +99,14 @@ class Player:
 
  
     def idle(self):        
+        # pygame.draw.rect(self.screen, (0,0,0), self.idle_rect)
+        # pygame.draw.rect(self.screen, (0,0,0), self.walkRight_rect)
+        # pygame.draw.rect(self.screen, (0,0,0), self.wallkLeft_rect)
+     
+
         self.screen.blit(self.player_idle[self.current_frames], (self.pos_x, self.pos_y))
+        # self.screen.blit(self.mask_image, (self.pos_x, self.pos_y))
+        
           
           
 

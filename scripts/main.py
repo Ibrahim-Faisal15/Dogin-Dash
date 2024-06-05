@@ -20,7 +20,7 @@ GREEN = (0, 255, 0)
 
 
 
-# Main function
+# Main functio
 def main():
     from player import Player  
     from lasers import Laser
@@ -81,14 +81,26 @@ def main():
         new_lasers = [laser for laser in new_lasers if laser.pos_x <= SCREEN.get_width()-100]
                               
         for laser in new_lasers:
+       
             laser.create_laser()
             laser.move()
+
+
+            # if player.idle_rect.colliderect( laser.laser_rect):
+            #     print("collided!!")
+
+            if player.idle_mask.overlap(laser.laser_mask, (laser.pos_x - player.pos_x, laser.pos_y - player.pos_y)):
+                # Code to execute if there is an overlap
+                print("The player and laser overlap.")
+
+            
+
+
+
             if  laser.pos_y >= (SCREEN.get_height()):
                 new_lasers.pop(0)
             
 
-        if player.idle_rect.colliderect( laser.laser_rect):
-            print("collided!!")
 
 
 
@@ -107,3 +119,4 @@ if __name__ == "__main__":
     main()
 
 
+# Change the size of the rect

@@ -31,6 +31,9 @@ class Laser:
 
         # laseR_Rect
         self.laser_rect = self.laser_sprites[self.current_frames].get_rect(topleft=(self.pos_x, self.pos_y))
+
+        self.laser_mask = pygame.mask.from_surface(self.laser_sprites[self.current_frames])
+        self.mask_img = self.laser_mask.to_surface()
     
 
     def move(self):        
@@ -57,12 +60,11 @@ class Laser:
            
 
     def create_laser(self):
-        # rectangle = pygame.Rect(self.pos_x, self.pos_y, self.width, self.height)
-        # pygame.draw.rect(self.screen, self.color, rectangle)
 
-        self.laser_rect = self.laser_sprites[self.current_frames].get_rect(topleft=(self.pos_x, self.pos_y))
-        # pygame.draw.rect(self.screen, (0,0,0), self.laser_rect)
+        # self.laser_rect = self.laser_sprites[self.current_frames].get_rect(topleft=(self.pos_x, self.pos_y))
+     
         self.screen.blit(self.laser_sprites[self.current_frames], (self.pos_x, self.pos_y))
+        # self.screen.blit(self.mask_img, (self.pos_x, self.pos_y))
        
 
 
