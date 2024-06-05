@@ -52,10 +52,7 @@ class Player:
         for i in range(len(self.walkLeft)):
          self.walkLeft[i] = pygame.transform.flip(self.walkLeft[i], True, False)
 
-        #  player_rect
-        self.idle_rect = self.player_idle[self.current_frames].get_rect(topleft=(self.pos_x, self.pos_y))
-        self.walkRight_rect = self.player_idle[self.current_frames].get_rect(topleft=(self.pos_x, self.pos_y))
-        self.wallkLeft_rect = self.player_idle[self.current_frames].get_rect(topleft=(self.pos_x, self.pos_y))
+        #  player_mask
         self.idle_mask = pygame.mask.from_surface(self.player_idle[self.current_frames])
         self.mask_image = self.idle_mask.to_surface()
       
@@ -65,10 +62,6 @@ class Player:
         if self.frame_count >= self.frame_delay:
             self.current_frames = (self.current_frames + 1) % self.total_frames
             self.frame_count = 0
-
-            self.idle_rect = self.player_idle[self.current_frames].get_rect(topleft=(self.pos_x, self.pos_y))
-            self.walkRight_rect = self.player_idle[self.current_frames].get_rect(topleft=(self.pos_x, self.pos_y))
-            self.wallkLeft_rect = self.player_idle[self.current_frames].get_rect(topleft=(self.pos_x, self.pos_y), width=40)
             
             self.idle_mask = pygame.mask.from_surface(self.player_idle[self.current_frames])
            
@@ -98,11 +91,7 @@ class Player:
                 self.walk_count = 0
 
  
-    def idle(self):        
-        # pygame.draw.rect(self.screen, (0,0,0), self.idle_rect)
-        # pygame.draw.rect(self.screen, (0,0,0), self.walkRight_rect)
-        # pygame.draw.rect(self.screen, (0,0,0), self.wallkLeft_rect)
-     
+    def idle(self):             
 
         self.screen.blit(self.player_idle[self.current_frames], (self.pos_x, self.pos_y))
         # self.screen.blit(self.mask_image, (self.pos_x, self.pos_y))

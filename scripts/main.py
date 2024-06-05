@@ -19,7 +19,6 @@ GREEN = (0, 255, 0)
 
 
 
-
 # Main functio
 def main():
     from player import Player  
@@ -34,6 +33,9 @@ def main():
     # background_img
     background_img = pygame.image.load("asset/background_img.jpg")
     background_img = pygame.transform.scale(background_img, (WIDTH, HEIGHT+90))
+    gameOver_img = pygame.image.load("asset/game_over_screen.png")
+    gameOver_img = pygame.transform.scale(gameOver_img, (WIDTH, HEIGHT))
+    
     new_lasers = []
     time_interval = 1000
     next_object_time = 0
@@ -41,6 +43,12 @@ def main():
     # instances
     player = Player(GREEN, 50, 5, player_pos_x, (HEIGHT-100), health,  SCREEN)
     laser = Laser(SCREEN)
+
+
+    def game_over(bool):
+        if(bool):
+            SCREEN.blit( gameOver_img , (0,0) )
+
 
 
 
@@ -86,30 +94,21 @@ def main():
             laser.move()
 
 
-            # if player.idle_rect.colliderect( laser.laser_rect):
-            #     print("collided!!")
-
             if player.idle_mask.overlap(laser.laser_mask, (laser.pos_x - player.pos_x, laser.pos_y - player.pos_y)):
-                # Code to execute if there is an overlap
-                print("The player and laser overlap.")
-
-            
-
+               game_over(True)
+      
+               
 
 
             if  laser.pos_y >= (SCREEN.get_height()):
                 new_lasers.pop(0)
             
 
-
-
-
         pygame.display.flip()
 
 
         SCREEN.blit(background_img , (0,0))
-
-    
+   
        
         clock.tick(FPS)
 
@@ -118,5 +117,3 @@ def main():
 if __name__ == "__main__":
     main()
 
-
-# Change the size of the rect
