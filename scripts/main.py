@@ -1,6 +1,7 @@
 import pygame
 import random
 import math
+import time
 
 import pygame.locals
 
@@ -12,108 +13,114 @@ SCREEN = pygame.display.set_mode((WIDTH, HEIGHT))
 clock = pygame.time.Clock()
 FPS = 27
 
-#colors values
+# colors values
 WHITE = (255, 255, 255)
 RED = (255, 0, 0)
 GREEN = (0, 255, 0)
 
+current_time = 0
 
 
-# Main functio
+def gameOver_func():
+    main()
+
+
+# Main function
 def main():
-    from player import Player  
+    from player import Player
     from lasers import Laser
 
-    #Dynamic properties
-    player_pos_x = (WIDTH//2)
-    health = 100
-  
+    global laser, player, current_time
 
-   
+    # Dynamic properties
+    player_pos_x = WIDTH // 2
+    health = 100
+
     # background_img
     background_img = pygame.image.load("asset/background_img.jpg")
-    background_img = pygame.transform.scale(background_img, (WIDTH, HEIGHT+90))
+    background_img = pygame.transform.scale(background_img, (WIDTH, HEIGHT + 90))
     gameOver_img = pygame.image.load("asset/game_over_screen.png")
     gameOver_img = pygame.transform.scale(gameOver_img, (WIDTH, HEIGHT))
-    
+    game_over = False
+
     new_lasers = []
-    time_interval = 1000
+    time_interval = 15
     next_object_time = 0
 
     # instances
-    player = Player(GREEN, 50, 5, player_pos_x, (HEIGHT-100), health,  SCREEN)
+    player = Player(GREEN, 50, 5, player_pos_x, (HEIGHT - 100), health, SCREEN)
     laser = Laser(SCREEN)
-
-
-    def game_over(bool):
-        if(bool):
-            SCREEN.blit( gameOver_img , (0,0) )
-
-
-
-
 
     running = True
     while running:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                running = False
-        
-        current_time = pygame.time.get_ticks()
 
+        if game_over:
+            SCREEN.blit(gameOver_img, (0, 0))
+            pygame.display.update()
 
-        player.update()
-        laser.update()
-      
-     
-        #Player Control System
-        keys = pygame.key.get_pressed()
-        if keys[pygame.K_RIGHT] and player_pos_x <= WIDTH-90:
-            player.move("RIGHT")
-            
-        elif keys[pygame.K_LEFT] and player_pos_x > 0:
-              player.move("LEFT")
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    running = False
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_BACKSPACE:
+                        game_over = False
+
+                        current_time = 0
+                        gameOver_func()
+
         else:
-            player.idle()
+            # current_time = pygame.time.get_ticks()
+            current_time += 1
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    running = False
 
+            player.update()
+            laser.update()
 
-              
+            # Player Control System
+            keys = pygame.key.get_pressed()
+            if keys[pygame.K_RIGHT] and player_pos_x <= WIDTH - 90:
+                player.move("RIGHT")
 
-        if current_time > next_object_time and len(new_lasers) < 15:
-            next_object_time += time_interval
-            new_lasers.append(Laser(SCREEN))
+            elif keys[pygame.K_LEFT] and player_pos_x > 0:
+                player.move("LEFT")
+            else:
+                player.idle()
 
+            if current_time > next_object_time and len(new_lasers) < 15:
+                next_object_time += time_interval
+                new_lasers.append(Laser(SCREEN))
 
+            new_lasers = [
+                laser for laser in new_lasers if laser.pos_x <= SCREEN.get_width() - 100
+            ]
 
+            for laser in new_lasers:
 
-        new_lasers = [laser for laser in new_lasers if laser.pos_x <= SCREEN.get_width()-100]
-                              
-        for laser in new_lasers:
-       
-            laser.create_laser()
-            laser.move()
+                laser.create_laser()
+                laser.move()
 
+                if player.idle_mask.overlap(
+                    laser.laser_mask,
+                    (laser.pos_x - player.pos_x, laser.pos_y - player.pos_y),
+                ):
+                    current_time = 0
+                    game_over = True
 
-            if player.idle_mask.overlap(laser.laser_mask, (laser.pos_x - player.pos_x, laser.pos_y - player.pos_y)):
-               game_over(True)
-      
-               
+                if laser.pos_y >= (SCREEN.get_height()):
+                    new_lasers.pop(0)
 
+            pygame.display.update()
 
-            if  laser.pos_y >= (SCREEN.get_height()):
-                new_lasers.pop(0)
-            
+            SCREEN.blit(background_img, (0, 0))
 
-        pygame.display.flip()
-
-
-        SCREEN.blit(background_img , (0,0))
-   
-       
-        clock.tick(FPS)
+            clock.tick(FPS)
+        print(next_object_time)
 
     pygame.quit()
 
-if __name__ == "__main__":
-    main()
 
+if __name__ == "__main__":
+
+    main()
