@@ -23,7 +23,7 @@ game_score = 0
 
 # text
 pygame.font.init()
-font =  pygame.font.SysFont('Comic Sans MS', 45)
+font =  pygame.font.Font('asset/font/pixel.ttf', 63)
 # text_surface = font.render(str(game_score), False, (0, 0, 0))
 
 
@@ -79,8 +79,8 @@ def main():
                       while running:
                         game_score += 1
                       
-                        text_surface = font.render(str(game_score), True, (0, 0, 0))
-                        SCREEN.blit(text_surface, (0, 0))
+                        text_surface = font.render("Score: " + str(game_score), True, (0, 0, 0))
+                        SCREEN.blit(text_surface, (25, 25))
                         for event in pygame.event.get():
                             if event.type == pygame.QUIT:
                                 pygame.quit()
