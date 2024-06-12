@@ -19,6 +19,12 @@ RED = (255, 0, 0)
 GREEN = (0, 255, 0)
 
 current_time = 0
+game_score = 0
+
+# text
+pygame.font.init()
+font =  pygame.font.SysFont('Comic Sans MS', 45)
+# text_surface = font.render(str(game_score), False, (0, 0, 0))
 
 
 def gameOver_func():
@@ -32,7 +38,7 @@ def main():
     from menu import Menu
 
 
-    global laser, player, current_time
+    global laser, player, current_time, game_score
 
     # Dynamic properties
     player_pos_x = WIDTH // 2
@@ -58,6 +64,7 @@ def main():
 
     running = True
     while running:
+      
          SCREEN.blit(background_img, (0, 0))
          for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -67,12 +74,18 @@ def main():
                 relative_pos_endBtn = pos[0] - menu.end_btn_rect.left, pos[1] - menu.end_btn_rect.top
                 if event.type == pygame.MOUSEBUTTONDOWN:
                      if menu.start_btn_rect.collidepoint(*pos) and menu.start_btn_mask.get_at(relative_pos_startBtn):
-                        
+                      game_score = 0
                    
                       while running:
+                        game_score += 1
+                      
+                        text_surface = font.render(str(game_score), True, (0, 0, 0))
+                        SCREEN.blit(text_surface, (0, 0))
                         for event in pygame.event.get():
                             if event.type == pygame.QUIT:
                                 pygame.quit()
+                            
+                        
                         if game_over:
                             SCREEN.blit(gameOver_img, (0, 0))
                             pygame.display.update()
@@ -86,6 +99,7 @@ def main():
                                         game_over = False
 
                                         current_time = 0
+                                       
                                         gameOver_func()
 
                         else:
@@ -131,18 +145,20 @@ def main():
                             SCREEN.blit(background_img, (0, 0))
 
                             clock.tick(FPS)
-                            print(current_time)
+                            # print(current_time)
 
-                  
+                        print(game_score)
 
 
                      
                      if menu.end_btn_rect.collidepoint(*pos) and menu.end_btn_mask.get_at(relative_pos_endBtn):                       
                         running = False
 
-        
+                    
        
          menu.menu_layout()
+
+                   
 
          pygame.display.update()
 
